@@ -1,0 +1,74 @@
+general {
+#        output_format = "dzen2"
+        colors = true
+        interval = 5
+}
+
+order += "tztime local"
+#order += "run_watch DHCP"
+order += "wireless wlx34e894db3ce9"
+order += "ethernet ens8191"
+#order += "cpu_temperature 0"
+order += "disk /"
+order += "memory"
+order += "load"
+order += "cpu_usage"
+order += "tztime london"
+order += "volume master"
+
+wireless wlx34e894db3ce9 {
+        format_up = "W: (%quality at %essid, %bitrate) %ip"
+        format_down = "W: down"
+}
+
+ethernet ens8191 {
+        format_up = "E: %ip (%speed)"
+        format_down = "E: down"
+}
+
+run_watch DHCP {
+        pidfile = "/var/run/dhclient*.pid"
+}
+
+tztime local {
+  format = "%Y-%m-%d %H:%M:%S"
+  timezone = "PST8PDT"
+}
+
+tztime london {
+        format = "London: %H:%M:%S %Z"
+        timezone = "Europe/London"
+}
+
+load {
+        format = "Load : %5min"
+}
+cpu_usage {
+    format = "all: %usage CPU_0: %cpu0 CPU_1: %cpu1"
+}
+
+#cpu_temperature 0 {
+#        format = "T: %degrees °C"
+#        path = "/sys/devices/platform/coretemp.0/temp1_input"
+#}
+
+memory {
+        format = "%used"
+        threshold_degraded = "10%"
+        format_degraded = "MEMORY: %free"
+}
+
+disk "/" {
+        format = "%free"
+}
+
+#read_file uptime {
+#        path = "/proc/uptime"
+#}
+
+volume master {
+   format = "♪ %volume"
+   format_muted = "♪ %volume"
+#   device = "pulse:alsa_output.usb-Apple_Inc._Display_Audio_15300DA1-00.analog-stereo"
+   device = "pulse:alsa_output.pci-0000_00_1b.0.analog-stereo"
+}
