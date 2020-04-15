@@ -5,7 +5,7 @@
 
 alias linux_config='/usr/bin/git --git-dir=$HOME/src/linux_config/ --work-tree=$HOME'
 
-git clone --bare https://github.com/jdochez/config.git $HOME/src/linux_config
+git clone --bare https://github.com/jdochez/linux.git $HOME/src/linux_config
 
 linux_config config --local status.showUntrackedFiles no 
 
