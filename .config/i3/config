@@ -39,7 +39,9 @@ bindsym $mod+Shift+q kill
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
 # installed.
-bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
+# bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
+
+bindsym $mod+space exec "rofi -show drun -modi drun,window -lines 20 -width 30 -padding 50 -theme Adapta-Nokto.rasi -show-icons"
 
 # change focus
 bindsym $mod+Left focus left
@@ -143,6 +145,8 @@ bindsym $mod+Shift+o mode "chromos"
 bindsym $mod+Shift+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
+bindsym $mode+Shift+d exec refresh
+
 # exit i3 (logs you out of your X session)
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 
@@ -158,12 +162,8 @@ mode "resize" {
         bindsym k resize grow height 10 px or 10 ppt
         bindsym l resize shrink height 10 px or 10 ppt
         bindsym semicolon resize grow width 10 px or 10 ppt
-
-        # same bindings, but for the arrow keys
-        bindsym Left resize shrink width 10 px or 10 ppt
-        bindsym Down resize grow height 10 px or 10 ppt
-        bindsym Up resize shrink height 10 px or 10 ppt
-        bindsym Right resize grow width 10 px or 10 ppt
+        bindsym Right resize shrink width 10 px or 10 ppt
+        bindsym Left resize grow width 10 px or 10 ppt
 
         # back to normal: Enter or Escape
         bindsym Return mode "default"
@@ -172,38 +172,49 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
-workspace 1 output DP-6
-workspace 9 output DP-4
-
 # My main apps.
 bindsym $mod+i exec idea
 bindsym $mod+c exec google-chrome
 
-exec --no-startup-id xrandr --output DP-6 --primary
-exec --no-startup-id xrandr --output DP-4 --right-of DP-6 --rotate right
+exec --no-startup-id xrandr --output DP-0 --primary
+# AT WORK 
+# exec --no-startup-id xrandr --output DP-4 --right-of DP-6 --rotate right
+# AT HOME
+exec --no-startup-id xrandr --output HDMI-0 --left-of DP-0 --rotate right
+
+workspace 1 output DP-0
+workspace 9 output HDMI-0
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
-bar {
-	tray_output DP-6
-	status_command i3status
-	font pango:Source Code Pro, 7
-}
+#bar {
+#	tray_output DP-0
+#	status_command i3status
+#	font pango:Source Code Pro, 8
+#}
+
+
+exec --no-startup-id polybar -r i3
 
 #exec --no-startup-id xinput set-prop 8 292 1
 
 exec --no-startup-id cinnamon-screensaver
 exec --no-startup-id xss-lock -- cinnamon-screensaver-command --lock
 exec --no-startup-id nm-applet
-exec --no-startup-id /usr/share/`goobuntu-indicator/goobuntu_indicator.py
+exec --no-startup-id /usr/share/goobuntu-indicator/goobuntu_indicator.py
 exec --no-startup-id /usr/share/gsysnews/gsysnews-launcher.sh
+exec --no-startup-id /usr/bin/gnome-keyring-daemon --start --components=secrets
+exec --no-startup-id gmenu
 
 bindsym $mod+l exec "cinnamon-screensaver-command --lock"
+bindsym $mod+p exec "picom -b"
+
 
 # pactl list sinks 
 # APPLE : set $SINK alsa_output.usb-Apple_Inc._Display_Audio_15300DA1-00.analog-stereo
-# SAMSUNG : set $SINK alsa_output.pci-0000_04_00.1.hdmi-stereo
-set $SINK alsa_output.pci-0000_00_1b.0.analog-stereo
+# set $SINK alsa_output.pci-0000_04_00.1.hdmi-stereo
+set $SINK bluez_sink.70_26_05_D0_1B_C6.a2dp_sink
+# HP set $SINK alsa_output.pci-0000_00_1b.0.analog-stereo
 
 bindsym XF86AudioRaiseVolume exec pactl set-sink-volume $SINK +10% && killall -SIGUSR1 i3status
 bindsym XF86AudioLowerVolume exec pactl set-sink-volume $SINK -10% && killall -SIGUSR1 i3status
@@ -219,6 +230,15 @@ mode  "Passthrough - Win+F12" {
 
 bindsym $mod+F12 mode "Passthrough - Win+F12"
 
-# focus_follows_mouse no
+focus_follows_mouse yes
 
 bindsym $mod+F1 exec systemctl suspend
+
+# choose right sound sink
+exec pactl suspend-sink alsa_output.pci-0000_04_00.1.hdmi-stereo true 
+
+# for guake
+for_window [class="guake"] floating enable
+
+# compositor 
+exec --no-startup-id picom
