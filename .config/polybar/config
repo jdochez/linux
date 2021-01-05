@@ -158,7 +158,7 @@ format-foreground = ${colors.white}
 
 [module/weather]
 type = custom/script
-exec = /home/jedo/bin/polybar-forecast-linux-x86_64
+exec = $HOME/bin/polybar-forecast-linux-x86_64
 exec-if = ping openweathermap.org -c 1
 interval = 600
 label-font = 4
@@ -166,20 +166,20 @@ format-foreground = ${colors.blue}
 
 [module/stock-goog]
 type = custom/script
-exec = NO_COLOR=TRUE /home/jedo/bin/ticker.sh GOOG
+exec = NO_COLOR=TRUE $HOME/bin/ticker.sh GOOG
 interval = 10
 label-font = 2
 
 [module/stock-aapl]
 type = custom/script
-exec = NO_COLOR=TRUE /home/jedo/bin/ticker.sh AAPL
+exec = NO_COLOR=TRUE $HOME/bin/ticker.sh AAPL
 interval = 10
 label-font = 2
 
 [module/sony-wh]
 type = custom/script
-exec = /home/jedo/bin/toggle_bluetooh.sh
-click-left = /home/jedo/bin/toggle_bluetooh.sh toggle
+exec = $HOME/bin/toggle_bluetooh.sh
+click-left = $HOME/bin/toggle_bluetooh.sh toggle
 tail = false
 label-font = 2
 
