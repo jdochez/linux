@@ -4,7 +4,7 @@
 include "/home/jedo/.gtkrc-2.0.mine"
 gtk-theme-name="Adapta-Nokto"
 gtk-icon-theme-name="Materia-Manjaro-Breeze-Dark"
-gtk-font-name="SF UI Display 10"
+gtk-font-name="SF UI Display Semi-Bold 11"
 gtk-cursor-theme-name="Adwaita"
 gtk-cursor-theme-size=24
 gtk-toolbar-style=GTK_TOOLBAR_BOTH_HORIZ

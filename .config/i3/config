@@ -172,14 +172,11 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
-# My main apps.
-bindsym $mod+i exec idea
-bindsym $mod+c exec google-chrome
-
 exec --no-startup-id xrandr --output DP-0 --primary
 # AT WORK 
 # exec --no-startup-id xrandr --output DP-4 --right-of DP-6 --rotate right
 # AT HOME
+# exec --no-startup-id xrandr --output HDMI-0 --mode 2560x1440 --left-of DP-0 --rotate right
 exec --no-startup-id xrandr --output HDMI-0 --left-of DP-0 --rotate right
 
 workspace 1 output DP-0
@@ -193,6 +190,7 @@ workspace 9 output HDMI-0
 #	font pango:Source Code Pro, 8
 #}
 
+exec --no-startup-id feh --bg-fill ~/Pictures/wallpaperbetter.com_3840x2160.jpg  
 
 exec --no-startup-id polybar -r i3
 
